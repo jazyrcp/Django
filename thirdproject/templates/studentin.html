@@ -1,0 +1,12 @@
+<html>
+<head>
+	<title>Student Create</title>
+</head>
+<body>
+	<form method='post'>
+		{% csrf_token %}
+		{{form.as_p}}
+		<button>Register</button>
+	</form>
+</body>
+</html>

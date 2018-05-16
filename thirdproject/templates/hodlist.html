@@ -1,0 +1,25 @@
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<table>
+		<thead>
+			<tr>
+				<th>Username</th>	
+				<th>email</th>	
+				<th>dept</th>	
+			</tr>
+		</thead>
+		<tbody>
+			{% for x in object_list%}
+			<tr>
+				<td>{{x.usr.username}}</td>
+				<td>{{x.usr.email}}</td>
+				<td>{{x.dept}}</td>
+			</tr>
+			{% endfor%}
+		</tbody>
+	</table>
+</body>
+</html>

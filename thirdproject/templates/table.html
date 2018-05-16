@@ -1,0 +1,27 @@
+<html>
+<head>
+	<title>Student Table</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+	
+	<div class="container">
+	<table class='table table-hover' style='margin:30px;padding:20px;border:10px solid red;box-shadow:3px 3px 3px;'>
+		<thead><tr>
+			<td>Name</td>
+			<td>Place</td>
+		</tr></thead>
+		<tbody>
+			{% for x in data %}
+			<tr>
+				<td>{{x.name}}</td>
+				<td>{{x.place}}</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	</div>
+</body>
+</html>

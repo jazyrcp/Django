@@ -1,0 +1,26 @@
+<html>
+<head>
+	<title>Teacher Create</title>
+
+</head>
+<body>
+	<table>
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Dept</th>
+				<th>Image</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for x in data%}
+			<tr>
+				<td>{{x.name}}</td>
+				<td>{{x.dept}}</td>
+				<td><img src="{{x.dept.url}}"></td>
+			</tr>
+			{% endfor%}
+		</tbody>
+	</table>
+</body>
+</html>
