@@ -1,6 +1,8 @@
 from django import forms
 
 from appfour.models import Brand,Car
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 
 class BrandForm(forms.ModelForm):
 	class Meta:
@@ -21,3 +23,9 @@ class BigForm(forms.Form):
 	engine = forms.IntegerField(widget = forms.TextInput(attrs = {'placeholder':'Engine Capacity','class':'form-control'}),required = True)
 	wheel_size = forms.IntegerField(widget = forms.TextInput(attrs = {'placeholder':'Wheel Size','class':'form-control'}),required = True)
 	color = forms.CharField(widget = forms.TextInput(attrs = {'placeholder':'Color','class':'form-control'}),required = True)
+
+
+class UserForm(UserCreationForm):
+	class Meta:
+		model = User
+		fields = ['username','first_name','last_name','email']

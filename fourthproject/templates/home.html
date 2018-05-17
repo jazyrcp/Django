@@ -4,7 +4,17 @@
 </head>
 <body>
 	<h6>This is Home</h6>
+	
+	<h4>{{data.username}}</h4>
+	<h4>{{data.first_name}}</h4>
+	<h4>{{data.last_name}}</h4>
+	<h4>{{data.email}}</h4>
+	<a href="{% url 'delete'%}">delete</a>
+	<a href="{% url 'edit'%}">Edit</a>
+	
+
+
 	<a href="{% url 'logout' %}">Logout</a>
-	</form>
+	
 </body>
 </html>
