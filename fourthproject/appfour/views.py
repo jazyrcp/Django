@@ -1,14 +1,17 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-
+import urllib
+import urllib2
+import json
 from django.shortcuts import render
-from django.views.generic import TemplateView,CreateView,View,ListView
+from django.views.generic import TemplateView,CreateView,View,ListView,DetailView
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import auth,messages
+from django.conf import settings
 from django.shortcuts import redirect
-from appfour.forms import BrandForm,CarForm,BigForm,UserForm
-from appfour.models import Car,Brand
+from appfour.forms import BrandForm,CarForm,BigForm,UserForm,BikeForm
+from appfour.models import Car,Brand,Bike
 
 from django.contrib.auth.decorators import user_passes_test
 
@@ -63,7 +66,7 @@ class EditUser(View):
 		usr = request.user
 		editer = User.objects.get(id=usr.id)
 		if form.is_valid():
-
+			
 			editer.first_name=request.POST.get('first_name')
 			editer.last_name=request.POST.get('last_name')
 			editer.last_name=request.POST.get('last_name') 
@@ -153,15 +156,34 @@ class BigView(View):
 	def post(self,request):
 		form = self.form_class(request.POST)
 		if form.is_valid():
-			brnd = Brand.objects.create(name=request.POST.get('brand_name'))
-			brnd.save()
-			carr = Car.objects.create(brand=brnd,name = request.POST.get('car_name')
-				,engine_cc=request.POST.get('engine'),wheel_size=request.POST.get('wheel_size'),color=request.POST.get('color'))
-			carr.save()
-			context = {
-			'form':form,
-			'success':'saved Succedfully'
+
+			''' Begin reCAPTCHA validation '''
+			recaptcha_response = request.POST.get('g-recaptcha-response')
+			url = 'https://www.google.com/recaptcha/api/siteverify'
+			values = {
+				'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
+				'response': recaptcha_response
 			}
+			data = urllib.urlencode(values)
+			req = urllib2.Request(url, data)
+			response = urllib2.urlopen(req)
+			result = json.load(response)
+			''' End reCAPTCHA validation '''
+
+			if result['success']:
+				brnd = Brand.objects.create(name=request.POST.get('brand_name'))
+				brnd.save()
+				carr = Car.objects.create(brand=brnd,name = request.POST.get('car_name')
+					,engine_cc=request.POST.get('engine'),wheel_size=request.POST.get('wheel_size'),color=request.POST.get('color'))
+				carr.save()
+				context = {
+				'form':form,
+				'success':'saved Succedfully'
+				}
+				messages.success(request, 'success!')
+			else:
+				messages.error(request, 'Invalid reCAPTCHA. Please try again.')
+			
 		return render(request,self.template_name,context)
 
 class UserView(CreateView):
@@ -208,3 +230,28 @@ def StaffHome(request):
 def AdminHome(request):
 	context = {}
 	return render(request, 'userlist.html', context)
+
+
+class BikeView(CreateView):
+	template_name='bike.html'
+	form_class= BikeForm
+	success_url = 'bike'
+
+class BikeListView(ListView):
+	template_name = 'bikelist.html'
+	model = Bike
+
+class DetailView(View):
+	template_name = 'detail.html'
+
+	def get(self,request,uid):
+		bik = Bike.objects.get(id=uid)
+		context ={
+		'data': bik
+		}
+		return render(request,self.template_name,context)
+
+class DetailView2(DetailView):
+	template_name = 'detail.html'
+	model  = Bike
+	context_object_name = 'data'

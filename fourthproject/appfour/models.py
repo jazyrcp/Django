@@ -22,3 +22,12 @@ class Car(models.Model):
 
 	def __str__(self):
 		return self.name
+
+class Bike(models.Model):
+	brand = models.ForeignKey(Brand)
+	bname = models.CharField(max_length=200)
+	engine_cc = models.IntegerField()
+	color = models.CharField(max_length=200)
+
+	def __str__(self):
+		return self.bname

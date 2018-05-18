@@ -1,0 +1,15 @@
+<html>
+<head>
+	<title>New Product</title>
+</head>
+<body>
+	<form method='post' enctype='multipart/list-data'>
+		{% csrf_token%}
+		<table>
+		{{form.as_table}}
+		</table>
+		<button>Save</button>
+
+	</form>
+</body>
+</html>

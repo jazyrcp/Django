@@ -6,6 +6,8 @@
 	<form method='post'>
 		{% csrf_token%}
 		{{form.as_p}}
+		<script src='https://www.google.com/recaptcha/api.js'></script>
+   		<div class="g-recaptcha" data-sitekey="6Lco0VkUAAAAALRG9aXscUPfaMv7Z1tRESK_9aV0"></div>
 		<button>Register</button>
 	</form>
 </body>

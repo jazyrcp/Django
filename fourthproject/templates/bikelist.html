@@ -1,0 +1,23 @@
+<html>
+<head>
+	<title>Bike List</title>
+</head>
+<body>
+	<table>
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Brand</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>{% for x in object_list%}
+				<td><a href="{% url 'detail' x.id%}">{{x.bname}}</a></td>
+				<td>{{x.brand}}</td>
+
+			</tr>{%endfor%}
+		</tbody>
+	</table>
+	
+</body>
+</html>

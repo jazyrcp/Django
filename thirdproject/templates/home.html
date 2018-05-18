@@ -3,6 +3,9 @@
 	<title>Logged in</title>
 </head>
 <body>
+	<h1>Logged in as {{user.username}}</h1>
+	<script src='https://www.google.com/recaptcha/api.js'></script>
+    <div class="g-recaptcha" data-sitekey="6Lco0VkUAAAAALRG9aXscUPfaMv7Z1tRESK_9aV0"></div>
 	<a href="{% url 'logout'%}">Logout</a>
 </body>
 </html>

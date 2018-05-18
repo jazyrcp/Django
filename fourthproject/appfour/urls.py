@@ -2,10 +2,10 @@ from django.conf.urls import url,include
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 
-from appfour.views import HomeView,BrandView,CarView,BigView,UserView,DeleteUser,DeleteUserS,EditUser,EditUserS,UserListView,login
+from appfour.views import HomeView,BrandView,CarView,BigView,UserView,DeleteUser,DeleteUserS,EditUser,EditUserS,UserListView,login,BikeView,BikeListView,DetailView,DetailView2
 urlpatterns = [
     url(r'^login/$',login,name='login'),
-    url(r'^home/',HomeView.as_view(),name='home'),
+    url(r'^home',HomeView.as_view(),name='home'),
     url(r'^logout/$',auth_views.logout,{'template_name' : 'logout.html'},name='logout'),
     url(r'^brand/',BrandView.as_view(),name='brand'),
     url(r'^car/',CarView.as_view(),name='car'),
@@ -16,5 +16,9 @@ urlpatterns = [
     url(r'^userlist/',UserListView.as_view(),name='userlist'),
     url(r'^editl/([0-9]+)/$',EditUserS.as_view(),name='editl'),
     url(r'^deletel/([0-9]+)/$',DeleteUserS.as_view(),name='deletel'),
+    url(r'^oauth/', include('social_django.urls', namespace='social')),
+    url(r'^bikelist',BikeListView.as_view(),name='bikelist'),
+    url(r'^bike',BikeView.as_view(),name='bike'),
+    url(r'^detail/([0-9]+)/$',DetailView2.as_view(),name='detail'),
 
 ]

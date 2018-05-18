@@ -7,6 +7,8 @@
 		{% csrf_token%}
 		{{form.as_p}}
 		<button>Login</button>
+
+		<a href="{% url 'social:begin' 'github' %}">Login with GitHub</a><br>
 	</form>
 </body>
 </html>
