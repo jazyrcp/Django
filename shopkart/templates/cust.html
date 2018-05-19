@@ -1,0 +1,17 @@
+<html>
+<head>
+	<title>New Customer</title>
+</head>
+<body>
+	<form method='post'>
+		{%csrf_token%}
+		<table>
+		{{form.as_table}}
+		</table>
+		<button>Register</button>
+	</form>
+	<a href="#">Go to admin</a>
+	<a href="#">Go to login page</a>
+
+</body>
+</html>
