@@ -9,12 +9,11 @@ GENDER=(('M','Male'),('F','Female'),('O','Other'),)
 class ProductForm(forms.ModelForm):
 	class Meta:
 		model = Product
-		fields = ['pro_name','pro_brand','pro_cat','pro_sub','pro_image','pro_detail','pro_color','pro_size','pro_price']
+		fields = ['pro_name','pro_brand','pro_cat','pro_image','pro_detail','pro_color','pro_size','pro_price']
 		labels = {
 		'pro_name':'Product Name',
 		'pro_brand':'Brand Name',
 		'pro_cat':'For',
-		'pro_sub':'Type',
 		'pro_image':'Product Image',
 		'pro_detail':'Description',
 		'pro_color':'Colour',
@@ -56,3 +55,9 @@ class CustomerForm(forms.Form):
 	username = forms.CharField(label='Username',widget=forms.TextInput(attrs={'class':'form-control'}),required=True)
 	pwd1 = forms.CharField(label='Password',widget=forms.PasswordInput(attrs={'class':'form-control'}),required=True)
 	pwd2 = forms.CharField(label='Confirm Password',widget=forms.PasswordInput(attrs={'class':'form-control'}),required=True)
+
+# class ProductListForm(forms.ModelForm):
+
+# 	class Meta:
+# 		model = Product
+# 		fields =['pro_name','pro_brand','pro_cat','pro_sub','pro_image','pro_detail','pro_color','pro_size','pro_price']

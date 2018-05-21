@@ -16,6 +16,9 @@ class Customer(models.Model):
 	place = models.CharField(max_length=200)
 	created_on=models.DateTimeField(auto_now=True)
 
+	def __str__(self):
+		return self.usr.username
+
 class Category(models.Model):
 	cat_name=models.CharField(max_length=200)
 
@@ -31,8 +34,7 @@ class SubCategory(models.Model):
 
 
 class Product(models.Model):
-	pro_cat = models.ForeignKey(Category)
-	pro_sub = models.ForeignKey(SubCategory)
+	pro_cat = models.ForeignKey(SubCategory)
 	pro_name =models.CharField(max_length=200)
 	pro_brand =models.CharField(max_length=200)
 	pro_detail = models.TextField(max_length=500)
@@ -43,3 +45,13 @@ class Product(models.Model):
 
 	def __str__(self):
 		return self.pro_name
+
+class Cart(models.Model):
+	cust = models.ForeignKey(Customer)
+	product = models.ForeignKey(Product)
+	count = models.IntegerField()
+
+	def __str__(self):
+		return self.cust.usr.username
+
+

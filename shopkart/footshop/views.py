@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-
+import json
 from django.shortcuts import render
-from django.views.generic import CreateView,TemplateView,View
+from django.http import HttpResponse
+from django.views.generic import CreateView,TemplateView,View,ListView,DetailView
 from django.contrib.auth.models import User
 
 from footshop.forms import ProductForm,CategoryForm,SubCategoryForm,CustomerForm
-from footshop.models import Customer
+from footshop.models import Customer,Product,Cart
 # Create your views here.
 
 class HomeView(TemplateView):
@@ -69,3 +70,27 @@ class CustomerView(View):
 			return render(request,self.template_name,context)
 
 
+class ProductListView(ListView):
+	template_name= 'prolist.html'
+	model = Product
+	context_object_name = 'data'
+
+class ProductDetailView(DetailView):
+	template_name = 'detail.html'
+	model = Product
+	context_object_name = 'data'
+
+class AddCartView(View):
+	def post(self,request):
+		p_id =request.POST.get('product_id')
+		ct = request.POST.get('count')
+		u = request.user
+		user = User.objects.get(username = u)
+		pro = Product.objects.get(id = p_id)
+		usr = Customer.objects.get(usr = user)
+		cart = Cart.objects.create(cust = usr ,product = pro ,count = ct)
+		cart.save()
+		# return redirect('prolist')
+
+		response = 'Success'
+		return HttpResponse(json.dumps(response),content_type='json')
