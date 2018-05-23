@@ -26,15 +26,11 @@ class Category(models.Model):
 		return self.cat_name
 
 
-class SubCategory(models.Model):
-	sub_name=models.CharField(max_length=200)
 
-	def __str__(self):
-		return self.sub_name
 
 
 class Product(models.Model):
-	pro_cat = models.ForeignKey(SubCategory)
+	
 	pro_name =models.CharField(max_length=200)
 	pro_brand =models.CharField(max_length=200)
 	pro_detail = models.TextField(max_length=500)
@@ -47,7 +43,7 @@ class Product(models.Model):
 		return self.pro_name
 
 class Cart(models.Model):
-	cust = models.ForeignKey(Customer)
+	cust = models.ForeignKey(Customer,related_name = 'carts')
 	product = models.ForeignKey(Product)
 	count = models.IntegerField()
 

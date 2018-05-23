@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from footshop.models import Product,Category,SubCategory
+from footshop.models import Product,Category
 
 
 
@@ -9,11 +9,11 @@ GENDER=(('M','Male'),('F','Female'),('O','Other'),)
 class ProductForm(forms.ModelForm):
 	class Meta:
 		model = Product
-		fields = ['pro_name','pro_brand','pro_cat','pro_image','pro_detail','pro_color','pro_size','pro_price']
+		fields = ['pro_name','pro_brand','pro_image','pro_detail','pro_color','pro_size','pro_price']
 		labels = {
 		'pro_name':'Product Name',
 		'pro_brand':'Brand Name',
-		'pro_cat':'For',
+		
 		'pro_image':'Product Image',
 		'pro_detail':'Description',
 		'pro_color':'Colour',
@@ -27,10 +27,7 @@ class CategoryForm(forms.ModelForm):
 		fields = ['cat_name']
 
 
-class SubCategoryForm(forms.ModelForm):
-	class Meta:
-		model = SubCategory
-		fields =['sub_name']
+
 
 
 # class ProductForm(forms.Form):

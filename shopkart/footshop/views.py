@@ -7,12 +7,14 @@ from django.views.generic import CreateView,TemplateView,View,ListView,DetailVie
 from django.contrib.auth.models import User
 
 from footshop.forms import ProductForm,CategoryForm,SubCategoryForm,CustomerForm
-from footshop.models import Customer,Product,Cart
+from footshop.models import Customer,Product,Cart,Category
 # Create your views here.
 
-class HomeView(TemplateView):
+class HomeView(View):
 	template_name='home.html'
 
+	def get(self,request):
+		return render(request,self.template_name)
 
 class ProductView(CreateView):
 	template_name='newproduct.html'
@@ -26,10 +28,6 @@ class CategoryView(CreateView):
 	success_url='cat'
 
 
-class SubCatView(CreateView):
-	template_name='newsub.html'
-	form_class=SubCategoryForm
-	success_url='subcat'
 
 
 class CustomerView(View):
@@ -94,3 +92,13 @@ class AddCartView(View):
 
 		response = 'Success'
 		return HttpResponse(json.dumps(response),content_type='json')
+
+class CategoryListView(ListView):
+	template_name = 'categories.html'
+	model = Category
+	context_object_name = 'data'
+
+class MenView(ListView):
+	template_name = 'men.html'
+	model = SubCategory
+	context_object_name = 'data'

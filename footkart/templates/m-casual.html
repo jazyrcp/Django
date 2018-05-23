@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Subcategory{% endblock %}
+
+{%block content %}
+	<div>
+		
+		<table class='table'>
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Brand</th>
+					<th>Color</th>
+					<th>Details</th>
+					<th>Image</th>
+					<th>Price</th>
+				</tr>
+			</thead>
+			<tbody>{% for x in data %}
+				<tr>
+					<td>{{x.pro_name}}</td>
+					<td>{{x.pro_brand}}</td>
+					<td>{{x.pro_color}}</td>
+					<td>{{x.pro_detail}}</td>
+
+					<td><figure>
+					
+						<img src="{{x.pro_image.url}}" alt = 'heloo' height = '100' width = '100'>
+					</figure></td>
+					<td>{{x.pro_price}}</td>
+					<td><button class='btn btn-success'>Add to Cart</button></td>
+				</tr>{% endfor %}
+			</tbody>
+		</table>
+	</div>
+{% endblock %}

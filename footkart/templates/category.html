@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Categories {% endblock %}
+
+{% block content %}
+	<div class='row'>
+		{% for x in data %}
+		<div class='col-md-4'>
+			<div class='breadcrumb-item'>
+		{{x.cat_name}}
+			</div>
+			{% for y in x.subcategories.all %}
+			<div>
+			<a href="{% url 'subcat' x.cat_name y.sub_name %}">{{y.sub_name}}</a>
+			</div>
+			{% endfor %}
+		</div>
+		{% endfor %}
+	</div>
+{% endblock %}

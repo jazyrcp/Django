@@ -1,0 +1,67 @@
+{%load static%}
+<html>
+<head>
+	{% block title %}base{% endblock %}</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="{% static 'js/bootstrap.min.js1' %}"></script>
+	<style>
+		
+		li{
+			font-family: arial;
+			padding: 5px;
+			text-decoration: none;
+			margin-right: 5px;
+			font-size: 16px;
+		}
+		a{
+			color: black;
+		}
+		
+
+	</style>
+</head>
+<body class='container'>
+	<div id='div1' >
+		<h1 style='color:#4C9900'><strong>FootShop</strong></h1>
+		<div class='pull-right' style='float:right;'>
+		<button id='login_b' class='btn btn-info pull-right'>Login</button>
+		<a class='btn btn-success pull-right' href="{% url 'cust' %}">Sign Up</a>
+		</div>
+	
+	<div class='pull-right'>
+		
+	</div>
+		<div id='div1_1'>
+			<ul id='ul1' class='nav nav-pills'>
+				
+				<li id='li1'><a href="#">Home</a></li>
+				<li id='li2'><a href="{% url 'prolist' %}">Category</a></li>
+				<li id='li3'><a href="#">About</a></li>
+				<li id='li4'><a href="#">Contact Us</a></li>	
+						
+			</ul>
+		</div>
+		<hr>
+	</div>	
+
+	<div id='login_mod' class='modal fade'>
+		<div class='modal-dialog'>
+			<div class='modal-content'>
+				<div class='modal-header'>
+					<h2>Login</h2>
+				</div>
+				<div class='modal-body'>
+					
+				</div>
+				<div class='modal-footer'>
+					<button class='btn btn-success'>Login</button>
+					<button class='btn btn-warning' data-dismiss='modal'>Cancel</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	{% block content %}
+	{% endblock %}
+
+</body>

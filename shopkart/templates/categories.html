@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Categories {% endblock %}
+
+{% block content %}
+	<div class='row'>{% for x in data %}
+		<div class='col-md-3'>
+			{{x.cat_name}}
+		</div>{% endfor %}
+		<div class='col-md-3'><a href="{% url 'men' %}"><img src="{% static 'image/men.jpg' %}" width='100%'></a></div>
+		<div class='col-md-3'><img src="{% static 'image/women.jpeg' %}" width='100%'></div>
+		<div class='col-md-3'><img src="{% static 'image/boy.jpg' %}" width='100%'></div>
+		<div class='col-md-3'><img src="{% static 'image/girl.jpg' %}" width='100%'></div>
+	</div>
+{% endblock %}
