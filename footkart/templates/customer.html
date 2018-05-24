@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title%} profile {% endblock %}
+
+{% block content %}
+<div class='container'>
+	<table class='table table-hover'>
+		<tbody>
+			<tr>
+				<td>User name</td>
+				<td>{{data.username}}</td>
+			</tr>
+			<tr>
+				<td>First name</td>
+				<td>{{data.first_name}}</td>
+			</tr>
+			<tr>
+				<td>Last name</td>
+				<td>{{data.last_name}}</td>
+			</tr>
+			<tr>
+				<td>Email ID</td>
+				<td>{{data.email}}</td>
+			</tr>
+			<tr>
+				<td>Cart</td>
+				<td>{% for x in data.carts.all %}
+					{{x.product.pro_name}}<br>
+					{% endfor %}</td>
+			</tr>
+		</tbody>
+	</table>	
+</div>
+
+{% endblock %}

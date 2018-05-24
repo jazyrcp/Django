@@ -21,57 +21,65 @@
 
 	</style>
 </head>
-<body class='container'>
-	<div id='div1' >
-		<h1 style='color:#4C9900'><strong>ShopName</strong></h1>
-		<div class='pull-right' style='float:right;'>
-		<button id='login_b' class='btn btn-info pull-right'>Login</button>
-		<a class='btn btn-success pull-right' href="new_user">Sign Up</a>
-		</div>
-	
-	<div class='pull-right'>
+<body id='back' style='margin:5px;'>
+	<div class='container'>
+		<div id='div1' style='z-index:9999;'>
+			<h1 style='color:#4C9900;text-shadow:3px 3px 5px grey;'><strong>ShopName</strong></h1>
+			<div class='pull-right' style='float:right;'>
+				{% if user.is_authenticated %}
+					<a href="{% url 'customer' %}" class='btn btn-info'>{{user.username}}</a>
+					<a class='label' href='{% url "cart" user.username %}'> cart:{{user.carts.count}}</a>
+					<a class='btn btn-warning' href="{% url 'logout' %}">Logout</a>
+				{% else %}
+					<a id='login_b' class='btn btn-info pull-right' href='{% url "login"%}'>Login</a>
+					<a class='btn btn-success pull-right' href="{% url 'new_user'%}">Sign Up</a>
+				{% endif %}
+			</div>
 		
-	</div>
-		<div id='div1_1'>
-			<ul id='ul1' class='nav nav-pills'>
+			<div class='pull-right'>
 				
-				<li id='li1'><a href="{% url 'home' %}">Home</a></li>
-				<li id='li2'><a href="{% url 'category' %}">Category</a></li>
-				<li id='li3'><a href="#">About</a></li>
-				<li id='li4'><a href="#">Contact Us</a></li>	
-						
-			</ul>
-		</div>
-		<hr>
-	</div>	
-
-	<div id='login_mod' class='modal fade'>
-		<div class='modal-dialog'>
-			<div class='modal-content'>
-				<div class='modal-header'>
-					<h2>Login</h2>
-				</div>
-				<div class='modal-body'>
+			</div >
+			<div id='div1_1'>
+				<ul id='ul1' class='nav nav-pills'>
 					
-				</div>
-				<div class='modal-footer'>
-					<button class='btn btn-success'>Login</button>
-					<button class='btn btn-warning' data-dismiss='modal'>Cancel</button>
+					<li id='li1'><a href="{% url 'home' %}">Home</a></li>
+					<li id='li2'><a href="{% url 'category' %}">Category</a></li>
+					<li id='li3'><a href="#">About</a></li>
+					<li id='li4'><a href="#">Contact Us</a></li>	
+							
+				</ul>
+			</div>
+			<hr>
+		</div>	
+
+		<div id='login_mod' class='modal fade'>
+			<div class='modal-dialog'>
+				<div class='modal-content'>
+					<div class='modal-header'>
+						<h2>Login</h2>
+					</div>
+					<div class='modal-body'>
+						
+					</div>
+					<div class='modal-footer'>
+						<button class='btn btn-success'>Login</button>
+						<button class='btn btn-warning' data-dismiss='modal'>Cancel</button>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class='jumbotron'>
-	{% block content %}
-	{% endblock %}
+		<div>
+		{% block content %}
+		{% endblock %}
+		</div>
 	</div>
 </body>
 <script>
-	$(document).ready(function() {
-		$('#login_b').click(function() {
-			$('#login_mod').modal('show');
-			console.log('hello');
-		});
-	});
-</script>
+// 	$(document).ready(function() {
+// 		$('#login_b').click(function() {
+// 			$('#login_mod').modal('show');
+// 			console.log('hello');
+// 		});
+// 	});
+// </script>
 </html>

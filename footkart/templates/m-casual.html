@@ -29,9 +29,52 @@
 						<img src="{{x.pro_image.url}}" alt = 'heloo' height = '100' width = '100'>
 					</figure></td>
 					<td>{{x.pro_price}}</td>
-					<td><button class='btn btn-success'>Add to Cart</button></td>
+					<td><button id='mod' class='btn btn-success' data-toggle='modal' data-target='#mod{{x.id}}'>Add to Cart</button></td>
+						<div class='modal fade' id='mod{{x.id}}'>
+							<div class='modal-dialog'>
+								<div class='modal-content'>
+									<div class='modal-header'>
+										<h2>Add this product to your cart</h2>
+									</div>
+									<div class='modal-body'>
+										<form>{% csrf_token %}
+										<h4>Count:</h4><input type='text' id='{{x.id}}'>
+										</form>
+									</div>
+									<div class='modal-footer'>
+										<button class='btn btn-success add_b' value='{{x.id}}'>Add</button>
+										<button  class='btn btn-danger' data-dismiss='modal' >Cancel</button>
+									</div>
+								</div>
+							</div>
+						</div>
 				</tr>{% endfor %}
+
 			</tbody>
 		</table>
 	</div>
+	<script>
+		$(document).ready(function() {
+
+			$('.add_b').click(function() {
+				var x  = $(this).val();
+				
+				var ct = $('#'+ x).val();
+				
+				var ajaxRequest = $.ajax({
+					'url':'/addcart/',
+					'type':'POST',
+					'data': { csrfmiddlewaretoken:'{{csrf_token}}',pid:x,count:ct},
+					'dataType':'json',
+					'async':false,
+				});
+
+				ajaxRequest.done(function(response) {
+					$('#' + x).modal('hide');
+
+				});
+				location.reload(true);
+			});
+		});
+	</script>
 {% endblock %}

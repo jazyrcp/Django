@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %} Cart {% endblock %}
+
+{% block content %}
+	<table class='table'>
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Brand</th>
+				<th>Image</th>
+				<th>Price</th>
+				<th>Count</th>
+			</tr>
+		</thead>
+		<tbody>{% for x in data %}
+			<tr>
+				<td>{{x.product.pro_name}}</td>
+				<td>{{x.product.pro_brand}}</td>
+				<td><img src="{{x.product.pro_image.url}}" height='100px' width ='100px'></td>
+				<td>{{x.product.pro_price}}</td>
+				<td>{{x.count}}</td>
+				<td><a class='btn btn-danger' href="{% url 'deletecart' x.id %}">Remove</a> </td>
+			</tr>{% endfor %}
+		</tbody>
+	</table>
+			<button class='btn btn-success' style='float:right;'>Proceed to Checkout</button>
+
+{% endblock %}

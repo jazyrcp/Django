@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-
+from django.http import HttpResponse
 from django.shortcuts import render,redirect
 from django.views.generic import View,CreateView,ListView
+from django.contrib.auth.models import User
+import json
 
 from shopname.forms import UserForm,NewProductForm
-from shopname.models import Category,Product,SubCategory
+from shopname.models import Category,Product,SubCategory,Cart
 # Create your views here.
 
 
@@ -69,3 +71,43 @@ class NewProductView(View):
 		else:
 			form = self.form_class()
 			return render(request,self.template_name,{'form':form})
+
+
+class AddCartView(View):
+	def post(self,request):
+		p_id = request.POST.get('pid')
+		ct = request.POST.get('count')
+		
+		pro = Product.objects.get(id= p_id)
+		s = request.user
+		usr = User.objects.get(username = s)
+		cart = Cart.objects.create(cust = usr, product = pro, count = ct)
+		cart.save()
+
+		return redirect('cart',s)
+		# response = 'Success'
+		# return HttpResponse(json.dumps(response),content_type='json')
+
+
+class CartListView(View):
+	template_name = 'cart.html'
+	def get(self,request,uid):
+		usr = User.objects.get(username = uid)
+		cart  = Cart.objects.filter(cust = usr)
+		return render(request,self.template_name,{'data':cart})
+
+class DeleteCartView(View):
+	def get(self,request,pid):
+		pro = Cart.objects.get(id = pid).delete()
+
+		return redirect('cart',request.user)
+
+
+class CustomerView(View):
+	template_name = 'customer.html'
+
+	def get(self,request):
+		s = request.user
+		usr = User.objects.get(username = s)
+		return render(request,self.template_name,{'data':usr})
+

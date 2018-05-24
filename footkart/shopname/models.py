@@ -40,4 +40,4 @@ class Cart(models.Model):
 	count = models.IntegerField()
 
 	def __str__(self):
-		return self.cust.usr.username
+		return self.cust.username
