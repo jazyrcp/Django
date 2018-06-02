@@ -1,0 +1,23 @@
+{% extends 'ebase.html' %}
+{% load widget_tweaks %}
+{% block title%}New Job {%endblock%}
+
+{% block content %}
+	
+	
+					<div class='container'>
+						<div class='jumbotron' style="box-shadow: 1px 1px 5px;margin: 50px;">
+						<form method='post'>
+							{% csrf_token %}
+							{% for x in form%}
+							{{x.label_tag}}
+							{% render_field x class='form-control'%}
+							{% endfor%}
+							<button class='btn btn-success btn-block'>Submit</button>
+						</form>
+						</div>
+					</div>
+				
+		
+
+{% endblock %}

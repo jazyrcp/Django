@@ -1,0 +1,28 @@
+{% extends 'ebase.html' %}
+
+{% block title %}Employer Zone {% endblock %}
+	{% block content %}
+		
+		<h4 class='text-muted' style="text-align: right;">Job Applications</h4>
+					{% for x in job%}
+				<div >
+					{% if x.applications.all %}
+					<h4>{{x.j_name}}</h4><br>
+					
+
+					<ul class=' nav navbar navbar-stacked'>{% for y in x.applications.all%}
+						<li style="border:1px solid grey;border-radius: 5px; margin: 20px;width: 100%;padding: 10px;">
+							<pre><span class="badge text-muted">Applicant    :</pre></span><a style="margin-left: 30px;" href="{% url 'profile' y.a_seeker.id %}">{{y.a_seeker.s_user.username}}</a>
+							<pre><span class="badge text-muted">Cover Letter:</span><textarea class='form-control'>{{y.a_cover}}</textarea></pre>
+							<a class="btn btn-default" style="float: right;" href="{{y.a_resume_url}}" download><span class="badge text-muted">Download Attachment</span></a>
+						</li>
+						{% endfor %}
+						<hr>
+					</ul>{% endif%}
+						
+					
+				</div>{% endfor %}
+						
+					
+	{% endblock %}
+

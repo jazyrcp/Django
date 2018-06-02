@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+	{% block content %}
+	<style type="text/css">
+		a {
+			color: black;
+		}
+	</style>
+	<div class='row'>
+		<div class='col-md-9' style="width: 100%;">
+			<ul class='nav nav-tabs' style="width: 100%;">
+				<li style="padding-right: 20px;"><al class="btn" href="{% url 'home' %}">All Jobs</a></li>
+					{% for y in cat %}
+				<li style="padding-right: 20px;"><a class="btn" href="{% url 'jobs' y.c_name %}">{{y.c_name}}</a></li>
+					{% endfor %}
+				
+			</ul>
+			
+			<div class='container' style='padding-top: 30px;'>
+				{% if job.count is 0%}
+					<div style="background-color:white;border:3px solid white;border-radius: 5px;padding: 40px;margin-top: 20px;margin-bottom: 10px;">
+						
+						<p class="alert alert-danger" >No Jobs Found : {{query}}</p>
+					</div>
+				{% endif%}
+
+				{% for x in job %}
+				<div style="background-color:white;border:3px solid white;border-radius: 5px;padding: 40px;margin-top: 20px;margin-bottom: 10px;">
+					<a href='{% url "applyj" x.id %}'>
+						<h5>{{x.j_name}}</h5><br>
+					<h6 style="color: blue;">{{x.j_employer.e_firm}}</h6>
+					
+					<span class='badge'>Requirements:</span><span class='text-muted'><textarea class="form-control" style="font-size: 12px;border: 0px;" rows=5 > {{x.j_requirement}}</textarea></span><br>
+					<span class='badge'>Posted on:</span><span class='text-muted'> {{x.j_created}}</span>
+					
+					<div style="float: right">
+					</a>
+					<button value='{{x.id}}' id='shareb' class="btn btn1" style="background-color: #0066CC;color: white;">share</button>
+					<div class="modal fade" id='share_{{x.id}}'>
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header"></div>
+								<div class="modal-body" ></div>
+									<p>To:</p>
+									<input type="text" name="" id='i1{{x.id}}' placeholder="sample@gmail.com" >
+								<div class="modal-footer">
+									<button class="btn" style="background-color: #0066CC;color: white;"id='send{{x.id}}'>Send</button>
+									<button class="btn btn-danger" data-dismiss='modal'>Cancel</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					</div>
+					
+				</div>
+					
+				{% endfor %}
+			</div>
+		</div>
+
+		<div class='col-md-3' style="min-height: 100%;">
+			<form method="post">
+				{% csrf_token %}
+			<input type="text" name="se1" class="form-control" value="{{query}}">
+			<button id="be1"  class="btn btn-warning" style="float: right;">Search Jobs</button>
+			</form>
+
+
+		<div style="margin-top: 52px;padding: 10px;background-color: white;">
+			<h5 style="margin-top: 50px;text-align: center;color: green;">Top Employers</h5>
+			<hr>
+				<div>
+					{% for y in emp%}
+					<a href="{% url 'employer' y.id %}"><p>{{y.e_firm}}</p></a>
+					<p ><small>jobs posted : {{y.jobs.all.count}}</small></p>
+					<hr>
+					{% endfor %}
+				</div>
+				
+				
+
+
+		</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		$('document').ready(function() {
+
+			var id = $('.btn1').val();
+			$('.btn1').click(function() {
+				
+				$('#share_' + id).modal('show');
+			});
+
+			$('#send'+ id).click(function() {
+				var x =$('#i1'+id).val();
+				console.log(x);
+
+				var ajaxRequest = $.ajax({
+					'url':'/sendmail/',
+					'type':'POST',
+					'data':{ csrfmiddlewaretoken:'{{csrf_token}}', mail: x ,jid : id},
+					'dataType':'json',
+					'async':false,
+
+					success: function (data) {
+				          console.log(data['job'][0]);
+				          console.log(data['job'].length);
+				          $('.container').html('');
+				          if(data['job'].length > 0 ){
+				          
+				          for(i = 0; i < data['job'].length; i++){
+				          $('.container').append('<div style="background-color:white;border:3px solid white;border-radius: 5px;padding: 40px;margin-top: 20px;margin-bottom: 10px;"><a href="/applyj/17/"><h5>'+data['job'][i]['j_name']+'</h5><br><h6 style="color: blue;">'+data['job'][i]['j_name']+'</h6><span class="badge">Requirements:</span><span class="text-muted"><textarea class="form-control" style="font-size: 12px;border: 0px;" rows="5"> '+data['job'][i]['j_requirement']+' </textarea></span><br><span class="badge">Posted on:</span><span class="text-muted">  '+data['job'][i]['j_created']+'</span></a><div style="float: right"><a href="/applyj/17/"></a><button value="17" id="shareb" class="btn btn1" style="background-color: #0066CC;color: white;">share</button><div class="modal fade" id="share_17"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"></div><div class="modal-body"></div><p>To:</p><input type="text" name="" id="i117" placeholder="sample@gmail.com"><div class="modal-footer"><button class="btn" style="background-color: #0066CC;color: white;" id="send17">Send</button><button class="btn btn-danger" data-dismiss="modal">Cancel</button></div></div></div></div></div></div>');
+				      }
+				  }
+				      else{
+				      	$('.container').append('<div style="background-color:white;border:3px solid white;border-radius: 5px;padding: 40px;margin-top: 20px;margin-bottom: 10px;"><a href="/applyj/17/"><h5>No Results found</h5><br><h6 style="color: blue;"></h6></div></div></div></div></div></div>');
+				      }
+				        }
+				});
+
+				ajaxRequest.done(function(response) {
+					$('#share' + id).modal('hide');
+
+				});
+
+			});
+
+
+			// $('#be1').click(function() {
+			// 	var query = $('#se1').val();
+			// 	console.log(query);
+
+			// 	var ajaxRequest = $.ajax({
+			// 		'url':'/search/',
+			// 		'type':'POST',
+			// 		'data':{ csrfmiddlewaretoken:'{{csrf_token}}', q:query },
+			// 		'dataType':'json',
+			// 		'async':false,
+			// 	});
+			// });
+		});
+	</script>
+{% endblock %}

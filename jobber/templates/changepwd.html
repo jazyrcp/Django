@@ -1,0 +1,45 @@
+{% load static %}
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Change Password</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+</head>
+<body style="background-image: url('{% static 'image/o3.svg' %}');background-size: cover;background-attachment: fixed;">
+	<div style='padding: 30px;'>
+		<a style="float:right;color: white;" href="{% url 'home' %}">Go Home</a>
+	</div>
+	<div class='row'>
+		<div class='col-md-4'></div>
+
+		<div class='col-md-4'>
+			<div class='jumbotron' style='box-shadow: 1px 5px 5px;'>
+				<form method='post'>
+
+						<h4 style='text-align: center;'>Change Password for {{user.username}}</h4>
+						<hr>
+						{% csrf_token %}
+						<pre>Enter Current password</pre>
+						<input type="password" name="pwd1" class="form-control">
+						<pre>Enter new password</pre>
+						<input type="password" name="pwd2" class="form-control">
+						<pre>Confirm new password</pre>
+						<input type="password" name="pwd3" class="form-control">
+						<button style="margin-top: 10px;" class='btn btn-success btn-block'>Change Password</button>
+						{% if p3%}
+						<div class="alert alert-danger">{{p3}}</div>
+						{% endif%}
+						<div style='text-align:center;margin-top: 20px;'>
+						<a  href="{% url 'elogin' %}">Go back</a><hr>
+						</div>
+						</div>
+				</form>
+			</div>
+	
+		<div class='col-md-4'></div>
+	</div>
+	
+
+</body>
+</html>

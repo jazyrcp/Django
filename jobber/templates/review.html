@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load widget_tweaks%}
+{% block title%} Review {% endblock %}
+
+{% block content%}
+	<div class='jumbotron'>
+		<div class='container'>
+			<h3>{{firm.e_firm}}</h3>
+			<form method='post'>
+				{% csrf_token %}
+				{% for field in form%}
+				{% render_field field class='form-control'%}
+				{% endfor %}
+				<div style="margin-top: 10px;float: right;">
+				<button class="btn btn-success">Submit</button>
+				</div>
+			</form>
+		</div>
+	</div>
+{% endblock%}

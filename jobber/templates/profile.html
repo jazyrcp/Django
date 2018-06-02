@@ -1,0 +1,21 @@
+{% extends 'ebase.html' %}
+
+
+{% block title %} Profile {% endblock%}
+
+{%block content%}
+	<div class="Container">
+		<div class='jumbotron'>
+			{{sek.s_user.first_name}}
+			{{sek.s_user.last_name}}
+			<img style="float: right;" src="{{sek.s_image.url}}" height="100px" width="100px">
+			
+			<hr>
+			<small class="text-muted">Qualification:</small><br>{{sek.s_qualification}}<br>
+			<small class="text-muted">Experience:</small><br>{{sek.s_experience}}<br>
+			<small class="text-muted">Contact:</small><br>{{sek.s_ph}}<br>{{sek.s_user.email}}
+			<a class="btn btn-sm" style="float: right;" href="{{sek.s_resume.url}}" download>Download Resume</a>
+			<br>
+		</div>
+	</div>
+{% endblock %}

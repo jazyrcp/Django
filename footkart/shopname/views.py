@@ -6,6 +6,8 @@ from django.views.generic import View,CreateView,ListView
 from django.contrib.auth.models import User
 import json
 
+from django.core.mail import send_mail
+
 from shopname.forms import UserForm,NewProductForm
 from shopname.models import Category,Product,SubCategory,Cart
 # Create your views here.
@@ -99,6 +101,8 @@ class CartListView(View):
 class DeleteCartView(View):
 	def get(self,request,pid):
 		pro = Cart.objects.get(id = pid).delete()
+
+		send_mail('Subject','MEssage','onlyho@gmail.com',['jazyrcp@gmail.com'],fail_silently=False)
 
 		return redirect('cart',request.user)
 

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<table>
+		<thead>
+			<tr>
+				<td>Name</td>
+				<td>Place</td>
+				<td>Image</td>
+			</tr>
+		</thead>
+		<tbody>
+			{% for x in object_list%}
+			<tr>
+				<td>{{x.name}}</td>
+				<td>{{x.place}}</td>
+				<td><img src="{{x.name.url}}"></td>
+			</tr>
+			{% endfor%}
+		</tbody>
+	</table>
+</body>
+</html>

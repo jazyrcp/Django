@@ -1,0 +1,60 @@
+{% extends 'ebase.html' %}
+
+{% block title %}Employer Zone {% endblock %}
+	{% block content %}
+		{% if user.is_authenticated %}
+			
+
+			<h4 class='text-muted' style="float: right;">Recently Created Jobs</h4>
+			<div>
+					{% if jobs.count is 0 %}
+						<div style="background-color: white;border:1px solid grey;border-radius: 10px;padding: 40px;margin: 20px;margin-top: 90px; box-shadow: 0px 0px 2px;text-align: center;">
+							<p>No jobs created yet</p>
+							<a href="{% url 'newjob' %}" class="btn btn-danger" >Create Now</a>
+						</div>
+					{% endif %}
+				{% for x in jobs %}
+			<div style="background-color: white;border:1px solid grey;border-radius: 10px;padding: 40px;margin: 20px;margin-top: 90px; box-shadow: 0px 0px 2px;">
+				<h4>{{x.j_name}}</h4><br>
+				<span class='badge'>Description:</span><textarea rows =5 class='form-control'> {{x.j_detail}}</textarea><br>
+				<span class='badge'>Requirements:</span><textarea rows =5 class='form-control'> {{x.j_requirement}}</textarea><br>
+		<span class='badge'>Posted on:</span><span class='text-muted'> {{x.j_created}}</span>
+				<div style="float: right">
+				<a  href="{% url 'ejob' x.id %}"class="btn btn-warning">Edit Job</a>
+				<a  href="{% url 'djob' x.id %}" class="btn btn-danger">Delete</a>
+				</div>
+			</div>
+				{% endfor %}
+			</div>
+			
+
+
+
+		{% else %}
+		<div class='container'>
+			<div class='row' style="padding: 50px;">
+				<div class='col-md-6'>
+					<div class='container' style='text-align: center;box-shadow: 2px 2px 5px;border-radius: 5px;padding: 30px;'>
+						<strong>Job Posting Services</strong><br>
+Quick and easy job posting process. Reach out to millions of active jobseekers on Naukri. Manage applications through Jobber.
+					</div>
+				</div>
+				<div class='col-md-6'>
+					<div class='container' style='text-align: center;box-shadow: 2px 2px 5px;border-radius: 5px;padding: 30px;'>
+						<strong>Resume Database Access</strong><br>
+Access the Jobber database of 58.2 million jobseekers. Search and shortlist the best candidates using our cutting edge tools.
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<hr>
+
+		<div style='text-align: center;padding: 100px;position:center;' >
+				<h2>Be more successful, professionally</h2>
+			<h3><pre><a href="{% url 'empcreate' %}">join Jobber now...</a></pre></h3>
+			
+		</div>
+		{% endif %}
+	{% endblock %}
+

@@ -1,0 +1,28 @@
+<form method='post'>
+				{% csrf_token %}
+					<div class='row'>
+						
+						<div class='col-md-6'>
+						{% for field in form1 %}
+						<label>{{field.label_tag}}</label>
+						{% render_field field class='form-control' %}
+						<span class='text-muted'><small>{{field.help_text|safe }}</small></span><br>
+						{% endfor %}
+						<br>
+						</div>
+
+						<div class='col-md-6'>
+						{% for field2 in form2 %}
+						<label>{{field2.label_tag}}</label>
+						{% render_field field2 class='form-control' %}
+						<span class='text-muted'><small>{{field2.help_text|safe }}</small></span>
+						{% endfor %}
+						<h3 style='text-align: center;padding-top: 20px;'><small><a href="">Already have an account</a></small></h3>
+						<div style='margin-top: 30px;'>
+						<button class='btn btn-success btn-block'>Register</button>
+						</div>
+						</div>
+
+						
+					</div>
+				</form>

@@ -1,0 +1,42 @@
+{% load static %}
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Log In</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+</head>
+<body style="background-image: url('{% static 'image/o3.svg' %}');background-size: cover;background-attachment: fixed;">
+	<div style='padding: 30px;'>
+		<a style="float:right;color: white;" href="{% url 'home' %}">Go Home</a>
+	</div>
+	<div class='row'>
+		<div class='col-md-4'></div>
+
+		<div class='col-md-4'>
+			<div class='jumbotron' style='box-shadow: 1px 5px 5px;'>
+				<form method='post'>
+						<h1 style='text-align: center;'>Login</h1>
+						{% csrf_token %}
+						{% for field in form %}
+						{{field.label_tag}}
+						{% render_field field class='form-control'%}
+						{{field.help_text}}
+						{% endfor %}
+						<button style="margin-top: 10px;" class='btn btn-success btn-block'>Login</button>
+						<a href="{% url 'forgot' %}" class="btn btn-warning btn-block">Forgot Password</a>
+						<div style='text-align:center;margin-top: 40px;'>
+						<a  href="{% url 'newuser' %}">New to Jobber! Register</a><br>
+						<div>
+						<a   href="{% url 'empcreate' %}">Registration for Employers</a><br>
+						</div>
+						</div>
+				</form>
+			</div>
+	
+		<div class='col-md-4'></div>
+	</div>
+	
+
+</body>
+</html>
